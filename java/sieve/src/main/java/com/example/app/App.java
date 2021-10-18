@@ -87,7 +87,7 @@ public class App
         int[] primes = findPrimes(Integer.parseInt(args[0]));
         int last = primes[primes.length - 1];
         // 
-        System.err.println("last prime " + last);
+        System.out.println("last prime " + last);
         if (display) {
             display(primes);
         }

@@ -8,7 +8,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 )
 
 var (
@@ -25,7 +24,7 @@ func displayPrime(primes []int, displayFlag bool) {
 	if displayFlag {
 		fmt.Println()
 	}
-	fmt.Fprintf(os.Stderr, "Last Prime: %d\n", primes[len(primes)-1])
+	fmt.Printf("Last Prime: %d\n", primes[len(primes)-1])
 }
 
 func sieve(num int) []int {

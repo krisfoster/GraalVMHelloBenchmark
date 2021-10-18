@@ -51,7 +51,7 @@ int main(int argc, char **argv)
         printf("\n");
     }
     
-    fprintf(stderr, "%6d\n", primes[last]);
+    printf("%6d\n", primes[last]);
 
     return 0;
 }
