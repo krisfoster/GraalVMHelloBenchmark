@@ -2,7 +2,8 @@
 
 .EXPORT_ALL_VARIABLES:
 
-UPPER=2000000
+UPPER_0=2000000
+UPPER=10
 
 build: build-c build-go build-java build-native
 
@@ -55,15 +56,20 @@ bench-java:
 avg-rss:
 	@echo "Generating RSS averages"
 	rm -f perf-rss-all.dat
-	echo "c," >> perf-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-c.dat >> perf-rss-all.dat
-	echo "go," >> perf-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-go.dat >> perf-rss-all.dat
-	echo "native," >> perf-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-native.dat >> perf-rss-all.dat
-	echo "java," >> perf-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-java.dat >> perf-rss-all.dat
+	echo "c," >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-c.dat >> perf-sieve-rss-all.dat
+	echo "go," >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-go.dat >> perf-sieve-rss-all.dat
+	echo "native," >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-native.dat >> perf-sieve-rss-all.dat
+	echo "java," >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-java.dat >> perf-sieve-rss-all.dat
 
 avg-clocktime:
 	@echo "Generating clocktime averages"
 	rm -f perf-clock-all.dat
-	awk '{ total += $$2; count++ } END { print total/count }' perf-c.dat >> perf-clock-all.dat
-	awk '{ total += $$2; count++ } END { print total/count }' perf-go.dat >> perf-clock-all.dat
-	awk '{ total += $$2; count++ } END { print total/count }' perf-native.dat >> perf-clock-all.dat
-	awk '{ total += $$2; count++ } END { print total/count }' perf-java.dat >> perf-clock-all.dat
+	awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-c.dat >> perf-sieve-clock-all.dat
+	awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-go.dat >> perf-sieve-clock-all.dat
+	awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-native.dat >> perf-sieve-clock-all.dat
+	awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-java.dat >> perf-sieve-clock-all.dat
+	# internal timings
+	awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-c-internal.dat >> perf-sieve-clock-all.dat
+	awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-go-internal.dat >> perf-sieve-clock-all.dat
+	awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-native-internal.dat >> perf-sieve-clock-all.dat
+	awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-java-internal.dat >> perf-sieve-clock-all.dat
