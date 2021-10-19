@@ -4,26 +4,43 @@
 
 UPPER=2000000
 
-build:
+build: build-c build-go build-java build-native
+
+build-c:
 	cd c/sieve && $(MAKE) clean
 	cd c/sieve && $(MAKE)
-	cd java/sieve && mvn clean package
-	cd java/sieve && mvn -Pnative -DskipTests package
+
+build-go:
 	cd go/sieve && go clean
 	cd go/sieve && go build Sieve.go
 
-bench:
-	@echo "Benchmarking"
+build-java:
+	cd java/sieve && mvn clean package
+
+build-native:
+	cd java/sieve && mvn -Pnative -DskipTests package
+
+bench: bench-clean bench-c bench-go bench-native bench-java
+
+bench-clean:
 	@echo "Cleaning up old perf files, from previous runs"
 	rm -f perf-*.dat
+
+bench-c:
 	@echo "Running C benchmark"
-	for i in {1..100}; do { /usr/bin/time -f "%M %e" ./c/sieve/prog $$UPPER  ; } 2>> perf-c.dat 1>/dev/null; done
+	for i in {1..100}; do { /usr/bin/time -f "%M %e" ./c/sieve/prog $$UPPER  ; } 2>> perf-c.dat 1>>perf-c-internal.dat; done
+
+bench-go:
 	@echo "Running Go benchmark"
 	for i in {1..100}; do { /usr/bin/time -f "%M %e" ./go/sieve/Sieve -upper $$UPPER ; } 2>> perf-go.dat 1>/dev/null; done
-	@echo "Running Java benchmark"
-	for i in {1..100}; do { /usr/bin/time -f "%M %e" java -cp java/sieve/target/my-app-1.0-SNAPSHOT.jar com.example.app.App $$UPPER ; } 2>> perf-java.dat 1>/dev/null; done
+
+bench-native:
 	@echo "Running Native Image benchmark"
 	for i in {1..100}; do { /usr/bin/time -f "%M %e" java/sieve/target/my-app $$UPPER ; } 2>> perf-native.dat 1>/dev/null; done
+
+bench-java:
+	@echo "Running Java benchmark"
+	for i in {1..100}; do { /usr/bin/time -f "%M %e" java -cp java/sieve/target/my-app-1.0-SNAPSHOT.jar com.example.app.App $$UPPER ; } 2>> perf-java.dat 1>/dev/null; done
 
 avg-rss:
 	@echo "Generating RSS averages"
