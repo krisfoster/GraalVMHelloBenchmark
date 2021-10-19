@@ -103,6 +103,8 @@
               <mainClass>com.example.app.App</mainClass>
               <buildArgs>
                 <buildArg>--no-fallback</buildArg>
+                <!-- Add support for G1GC -->
+                <buildArg>--gc=G1</buildArg>
               </buildArgs>
             </configuration>
           </plugin>

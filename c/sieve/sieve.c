@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
-#include <sys/time.h>
 
 int main(int argc, char **argv)
 {
@@ -10,8 +9,13 @@ int main(int argc, char **argv)
     //double time_spent = 0.0;
     //clock_t begin = clock();
     //struct timeval startTick, endTick;
-    struct timeval start, end;
-    gettimeofday(&start, NULL);
+    //struct timeval start, end;
+    //gettimeofday(&start, NULL);
+
+
+    struct timespec tstart, tend;
+    clock_gettime(CLOCK_MONOTONIC, &tstart);
+
 
     // vars
     int number,i,j;
@@ -65,18 +69,27 @@ int main(int argc, char **argv)
         printf("\n");
     }
     
-    printf("%6d ", primes[last]);
+    // Don't need to print the last prime...
+    //printf("%6d ", primes[last]);
 
     // Get end time
     //clock_t endTick = clock();
     //time_spent += (double)(endTick - beginTick) / CLOCKS_PER_SEC;
     //printf("Running Time: %f", time_spent);
-    gettimeofday(&end, NULL);
+    //gettimeofday(&end, NULL);
 
-    long seconds = (end.tv_sec - start.tv_sec);
-    long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
+    //long seconds = (end.tv_sec - start.tv_sec);
+    //long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
  
-    printf("%ld %ld\n", seconds, micros);
+    //printf("%ld %ld\n", seconds, micros * 1000);
+    clock_gettime(CLOCK_MONOTONIC, &tend);
+
+    // Time of run in nanoseconds - output to STDOUT
+    printf("%12f\n",
+           ((double)1.0e9*tend.tv_sec + tend.tv_nsec) - 
+           ((double)1.0e9*tstart.tv_sec + tstart.tv_nsec));
+
+
 
     return 0;
 }

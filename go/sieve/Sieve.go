@@ -8,6 +8,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"time"
 )
 
 var (
@@ -23,8 +24,8 @@ func displayPrime(primes []int, displayFlag bool) {
 	}
 	if displayFlag {
 		fmt.Println()
+		fmt.Printf("%d ", primes[len(primes)-1])
 	}
-	fmt.Printf("Last Prime: %d\n", primes[len(primes)-1])
 }
 
 func sieve(num int) []int {
@@ -67,7 +68,10 @@ func init() {
 }
 
 func main() {
+	start := time.Now()
 	flag.Parse()
 	primes := sieve(*upper)
 	displayPrime(primes, *displayFlag)
+	elapsed := time.Since(start)
+	fmt.Printf("%d\n", elapsed.Nanoseconds())
 }

@@ -83,13 +83,17 @@ public class App
 
     public static void main(String[] args )
     {
+        final long startTime = System.nanoTime();
+
         boolean display = args.length >= 2 ? Boolean.parseBoolean(args[1]) : false;
         int[] primes = findPrimes(Integer.parseInt(args[0]));
         int last = primes[primes.length - 1];
         // 
-        System.out.println("last prime " + last);
+        //System.out.println("last prime " + last);
         if (display) {
             display(primes);
         }
+        final long endTime = System.nanoTime();
+        System.out.println(endTime - startTime);
     }
 }

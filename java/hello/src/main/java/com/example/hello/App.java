@@ -13,6 +13,9 @@ public class App
 
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        final long startTime = System.nanoTime();
+        //System.out.println( "Hello World!" );
+        final long endTime = System.nanoTime();
+        System.out.println(endTime - startTime);
     }
 }

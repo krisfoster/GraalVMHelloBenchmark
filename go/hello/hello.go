@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 func main() {
-	fmt.Println("HelloWorld!")
+	start := time.Now()
+	elapsed := time.Since(start)
+	fmt.Printf("%d\n", elapsed.Nanoseconds())
 }
