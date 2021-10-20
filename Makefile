@@ -69,23 +69,3 @@ bench-java:
 		TIMEFORMAT='%3lR' && \
 		time (for i in {1..100}; do { java -cp java/sieve/target/my-app-1.0-SNAPSHOT.jar com.example.app.App $$UPPER  ; } 1>> perf-sieve-java-internal.dat; done) 2>> perf-sieve-rss-all.dat
 
-avg-rss:
-	@echo "Generating RSS averages"
-	rm -f perf-sieve-rss-all.dat
-	echo "c," >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-c.dat >> perf-sieve-rss-all.dat
-	echo "go," >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-go.dat >> perf-sieve-rss-all.dat
-	echo "native," >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-native.dat >> perf-sieve-rss-all.dat
-	echo "java," >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-java.dat >> perf-sieve-rss-all.dat
-
-avg-clocktime:
-	@echo "Generating clocktime averages"
-	rm -f perf-sieve-clock-all.dat
-	awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-c.dat >> perf-sieve-clock-all.dat
-	awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-go.dat >> perf-sieve-clock-all.dat
-	awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-native.dat >> perf-sieve-clock-all.dat
-	awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-java.dat >> perf-sieve-clock-all.dat
-	# internal timings
-	awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-c-internal.dat >> perf-sieve-clock-all.dat
-	awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-go-internal.dat >> perf-sieve-clock-all.dat
-	awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-native-internal.dat >> perf-sieve-clock-all.dat
-	awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-java-internal.dat >> perf-sieve-clock-all.dat
