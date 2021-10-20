@@ -19,13 +19,15 @@ build-java:
 	cd java/sieve && mvn clean package
 
 build-native:
+	@echo "Please make sure that GraalVM EE is your default Java now"
+	sudo alternatives --config java
 	cd java/sieve && mvn -Pnative -DskipTests package
 
 bench: bench-clean bench-c bench-go bench-native bench-java
 
 bench-clean:
 	@echo "Cleaning up old perf files, from previous runs"
-	rm -f perf-*.dat
+	#rm -f perf-*.dat
 
 bench-c:
 	@echo "Running C benchmark"
@@ -59,8 +61,9 @@ bench-native:
 
 bench-java:
 	@echo "Running Java benchmark"
-	@echo "Upper = $$UPPER"
 	rm -f perf-sieve-java*
+	@echo "Please make sure you make OpenJDK your default java before running the benchmark"
+	sudo alternatives --config java
 	for i in {1..100}; do { /usr/bin/time -f "%M %e" java -cp java/sieve/target/my-app-1.0-SNAPSHOT.jar com.example.app.App $$UPPER ; } 2>> perf-sieve-rss-java.dat 1>/dev/null; done
 	echo -n "Java RSS " >> perf-sieve-rss-all.dat && awk '{ total += $$1; count++ } END { print total/count }' perf-sieve-rss-java.dat >> perf-sieve-rss-all.dat
 	echo -n "Java CLK " >> perf-sieve-rss-all.dat && awk '{ total += $$2; count++ } END { print total/count }' perf-sieve-rss-java.dat >> perf-sieve-rss-all.dat
