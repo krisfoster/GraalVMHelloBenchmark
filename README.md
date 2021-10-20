@@ -41,6 +41,8 @@ algorithm Sieve of Eratosthenes is
 
 ## The Languages / Runtimes We Will Benchmark
 
+We are going to benchmark the following suite of 
+
 ## What We Will Benchmark
 
 ## Building the Code

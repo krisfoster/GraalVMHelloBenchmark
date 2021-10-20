@@ -89,10 +89,10 @@ public class App
         int[] primes = findPrimes(Integer.parseInt(args[0]));
         int last = primes[primes.length - 1];
         // 
-        //System.out.println("last prime " + last);
         if (display) {
             display(primes);
         }
+        System.out.println("[" + last + "] ");
         final long endTime = System.nanoTime();
         System.out.println(endTime - startTime);
     }

@@ -51,6 +51,7 @@ func sieve(num int) []int {
 		}
 	}
 
+	// Loop through the array and extract the actual primes.
 	cnt := 0
 	for i := 2; i < len(primes); i++ {
 		if primes[i] == true {
@@ -71,6 +72,7 @@ func main() {
 	start := time.Now()
 	flag.Parse()
 	primes := sieve(*upper)
+	fmt.Printf("%d ", primes[len(primes)-1])
 	displayPrime(primes, *displayFlag)
 	elapsed := time.Since(start)
 	fmt.Printf("%d\n", elapsed.Nanoseconds())
