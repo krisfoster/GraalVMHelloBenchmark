@@ -69,10 +69,9 @@ Our benchmark, for each language/runtime, will be run against the same maximum u
 
 You will need:
 * a recent version of gcc 
-* Go (1.9.4)
+* Go
 * OpenJDK 17
 * Oracle GraalVM for JDK17
-* Oracle GraalVM Native Image for JDK17
 
 ### Note on the Need to Switch Between Java Versions
 
