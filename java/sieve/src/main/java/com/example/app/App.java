@@ -1,7 +1,5 @@
 package com.example.app;
 
-import java.util.Arrays;
-
 /**
  * Command line driver - takes a single parameter which is a number that is the
  * upper limit of to search for primes below
@@ -11,7 +9,7 @@ public class App
 {
 
     /**
-     * Finds the primes - use the sieve of Eratosthenes>
+     * Finds the primes - use the sieve of Eratosthenes
      * https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
      *
      * Algorithm below:
@@ -35,7 +33,7 @@ public class App
     public static final int[] findPrimes(final int upper) {
         // This will hold a flag for each number, indicating whether or not it
         // is prime. True indicates prime, false does not
-        boolean primes[] = new boolean[upper + 1];
+        final boolean primes[] = new boolean[upper + 1];
 
         // Set all flags to true - we are going to assume everything is prime, till we find out 
         // that it isn't. All numbers are going to be either prime or compound (a mutiple of primes)
@@ -65,7 +63,7 @@ public class App
             }
         }
         // resize the array
-        int[] found = new int[cnt];
+        final int[] found = new int[cnt];
 
         for (int i=0; i<cnt; i++) {
             found[i] = foundU[i];
@@ -74,7 +72,7 @@ public class App
         return found;
     }
 
-    public static void display(final int[] primes) {
+    public static final void display(final int[] primes) {
         for (int i=0; i< primes.length; i++) {
             System.out.print(primes[i]);
         }
@@ -85,9 +83,9 @@ public class App
     {
         final long startTime = System.nanoTime();
 
-        boolean display = args.length >= 2 ? Boolean.parseBoolean(args[1]) : false;
-        int[] primes = findPrimes(Integer.parseInt(args[0]));
-        int last = primes[primes.length - 1];
+        final boolean display = args.length >= 2 ? Boolean.parseBoolean(args[1]) : false;
+        final int[] primes = findPrimes(Integer.parseInt(args[0]));
+        final int last = primes[primes.length - 1];
         // 
         if (display) {
             display(primes);
